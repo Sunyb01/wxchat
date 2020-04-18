@@ -2,7 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scblock.wxchat.mapper.ExampleMapper">
     <sql id="example">
-
+        id,
+        problem,
+        answer,
+        create_time AS createTime,
+        flag
     </sql>
+    <insert id="insert" parameterType="com.scblock.wxchat.entity.Example">
+        inset into example (problem, answer, create_time)
+        values
+        (#{problem}, #{answer}, now())
+    </insert>
+    <insert id="batchInset" >
+        inset into example (problem, answer, create_time)
+        values
+        <foreach collection="exmps" item="exmp" separator="," index="index">
+            (#{problem}, #{answer}, now())
+        </foreach>
+    </insert>
+
+    <select id="getExampleForRandom" resultType="com.scblock.wxchat.entity.Example" parameterType="java.lang.Integer">
+        SELECT  id, problem, answer FROM example ORDER BY RAND() LIMIT ${count}
+    </select>
 
 </mapper>

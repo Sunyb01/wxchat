@@ -2,13 +2,15 @@ package com.scblock.wxchat.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @Author: sunyubin
  * @Date: 2020/4/17 18:18
  * @Description: 用户实体类
  */
 @Data
-public class User {
+public class User implements Serializable {
     /**
      * 主键
      */

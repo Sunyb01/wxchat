@@ -2,7 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scblock.wxchat.mapper.UserMapper">
     <sql id="user">
-
+        id,
+        username AS userName,
+        password ,
+        rule,
+        crate_time AS createTime,
+        last_login_time AS lastLoginTime,
+        activation
     </sql>
+    <insert id="insert" parameterType="com.scblock.wxchat.entity.User">
+        insert into users(username, password, rule, create_time, last_login_time, activation)
+        values(#{userName}, #{password}, now(), now(), #{activation})
+    </insert>
 
 </mapper>
