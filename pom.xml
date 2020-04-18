@@ -19,6 +19,11 @@
     </properties>
 
     <dependencies>
+        <!--  切面      -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
         <!--  Hutool      -->
         <dependency>
             <groupId>cn.hutool</groupId>

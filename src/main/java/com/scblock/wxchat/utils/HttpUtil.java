@@ -17,6 +17,8 @@ public class HttpUtil {
     public String weatherUrl;
     @Value("${my.weather.key}")
     public String weatherKey;
+    @Value("${my.ipApi.url}")
+    public String ipApiUrl;
 
     public String getResult(String...arg) {
         String latitudeAndLongitude = "";
@@ -29,6 +31,20 @@ public class HttpUtil {
         parameter.put("key", weatherKey);
         parameter.put("location", latitudeAndLongitude);
         String strJson = cn.hutool.http.HttpUtil.get(weatherUrl, parameter);
+        return strJson;
+    }
+
+    /**
+     * @Description: ip查询
+     * @author: sunyubin
+     * @Date 2020/4/18 14:46
+     * @Param [ip]
+     * @Return java.lang.String
+     */
+    public String getIpResult(String ip) {
+        Map<String, Object> parameter = Maps.newHashMap();
+        parameter.put("ip", ip);
+        String strJson = cn.hutool.http.HttpUtil.get(ipApiUrl, parameter);
         return strJson;
     }
 }

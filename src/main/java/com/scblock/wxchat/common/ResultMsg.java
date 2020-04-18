@@ -64,6 +64,9 @@ public class ResultMsg implements Serializable {
         return  success(re, null);
     }
 
+    public static ResultMsg success(Object obj) {
+        return success(ResultEnum.SUCCESS, obj);
+    }
     /**
      * @Description: 错误
      * @author: sunyubin

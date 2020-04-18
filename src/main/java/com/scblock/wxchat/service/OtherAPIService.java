@@ -16,4 +16,13 @@ public interface OtherAPIService {
      * @Return java.lang.String
      */
     Map<String, Object> getWeatherInfo(String longitude, String latitude);
+    
+    /**
+     * @Description: 获取第三方ip的插叙
+     * @author: sunyubin
+     * @Date 2020/4/18 14:39
+     * @Param [ip]
+     * @Return java.util.Map<java.lang.String,java.lang.Object>
+     */
+    Map<String, Object> getIpInfo(String ip);
 }
