@@ -17,5 +17,5 @@ public interface RuleMapper {
      * @Param [id]
      * @Return com.scblock.wxchat.entity.Rule
      */
-    Rule findRulesById(@Param("userId") int id);
+    Rule findRulesById(@Param("id") int id);
 }

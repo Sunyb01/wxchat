@@ -75,7 +75,18 @@ public class ResultMsg implements Serializable {
      * @Return com.scblock.wxchat.utils.Result
      */
     public static ResultMsg error(ResultEnum re){
-        return new ResultMsg(re.getCode(), re.getMsg(), null);
+        return error(re, null);
     }
 
+    public static ResultMsg error(Object obj) {
+        return error(ResultEnum.ERROR, obj);
+    }
+
+    public static ResultMsg error(ResultEnum re, Object obj){
+        return new ResultMsg(re.getCode(), re.getMsg(), obj);
+    }
+
+    public static ResultMsg dropOut(ResultEnum res) {
+        return new ResultMsg(res.getCode(), res.getMsg(), null);
+    }
 }

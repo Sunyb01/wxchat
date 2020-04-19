@@ -21,4 +21,8 @@ public class Rule {
      * 标识
      */
     private int flag;
+    /**
+     * 用户id
+     */
+    private int userId;
 }
