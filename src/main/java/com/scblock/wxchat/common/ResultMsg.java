@@ -60,8 +60,8 @@ public class ResultMsg implements Serializable {
      * @Param [re]
      * @Return com.scblock.wxchat.utils.Result
      */
-    public static ResultMsg success(ResultEnum re) {
-        return  success(re, null);
+    public static ResultMsg success() {
+        return  success(ResultEnum.SUCCESS, null);
     }
 
     public static ResultMsg success(Object obj) {

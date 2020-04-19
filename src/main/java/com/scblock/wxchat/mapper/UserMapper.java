@@ -1,6 +1,7 @@
 package com.scblock.wxchat.mapper;
 
 import com.scblock.wxchat.entity.User;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @Author: sunyubin
@@ -15,5 +16,14 @@ public interface UserMapper {
      * @Param [user]
      * @Return int
      */
-    int insert(User user);
+    int insert(@Param("userName") String username,@Param("password") String password);
+
+    /**
+     * @Description: 根据用户名查询用户信息
+     * @author: sunyubin
+     * @Date 2020/4/19 10:56
+     * @Param [username]
+     * @Return com.scblock.wxchat.entity.User
+     */
+    User selectUserByName(@Param("username") String username);
 }

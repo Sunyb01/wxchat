@@ -10,9 +10,20 @@
         last_login_time AS lastLoginTime,
         activation
     </sql>
-    <insert id="insert" parameterType="com.scblock.wxchat.entity.User">
+    <!--  增加新的用户  -->
+    <insert id="insert">
         insert into users(username, password, rule, create_time, last_login_time, activation)
         values(#{userName}, #{password}, now(), now(), #{activation})
     </insert>
-
+    <!--  根据用户名查询用户信息  -->
+    <select id="selectUserByName" resultMap="selectUserMap" parameterType="java.lang.String">
+        SELECT id, username AS userName, password, activation from users where username = #{username}
+    </select>
+    <resultMap id="selectUserMap" type="com.scblock.wxchat.entity.User">
+        <id column="id" property="id"/>
+        <result column="username" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="acvivation" property="activation"/>
+        <collection property="rules" column="id" select=""/>
+    </resultMap>
 </mapper>

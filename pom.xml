@@ -19,6 +19,13 @@
     </properties>
 
     <dependencies>
+
+        <!--    安全组件    -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
         <!--  切面      -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

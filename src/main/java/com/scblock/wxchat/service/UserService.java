@@ -5,4 +5,12 @@ package com.scblock.wxchat.service;
  * @Description: 用户服务类
  */
 public interface UserService {
+    /**
+     * @Description: 添加新的用户,成功返回1, 失败返回0
+     * @author: sunyubin
+     * @Date 2020/4/19 10:34
+     * @Param [phone, password]
+     * @Return int
+     */
+    int insert(String phone, String password);
 }

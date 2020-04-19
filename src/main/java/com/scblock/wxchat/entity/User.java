@@ -1,8 +1,14 @@
 package com.scblock.wxchat.entity;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @Author: sunyubin
@@ -10,7 +16,7 @@ import java.io.Serializable;
  * @Description: 用户实体类
  */
 @Data
-public class User implements Serializable {
+public class User implements UserDetails {
     /**
      * 主键
      */
@@ -39,4 +45,42 @@ public class User implements Serializable {
      * 激活状态
      */
     private int activation;
+    /**
+     * 权限
+     */
+    private List<Rule> rules;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>(rules.size());
+        for (Rule rs : rules) {
+            authorities.add(new SimpleGrantedAuthority(rs.getRuleName()));
+        }
+        return authorities;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.userName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
