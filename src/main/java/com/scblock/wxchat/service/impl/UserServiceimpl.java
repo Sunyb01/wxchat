@@ -1,11 +1,14 @@
 package com.scblock.wxchat.service.impl;
 
+import com.scblock.wxchat.entity.User;
 import com.scblock.wxchat.exception.InsertDataException;
 import com.scblock.wxchat.mapper.UserMapper;
 import com.scblock.wxchat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Objects;
 
 /**
  * @Author: sunyubin
@@ -26,5 +29,11 @@ public class UserServiceimpl implements UserService {
             throw new InsertDataException();
         }
         return 0;
+    }
+
+    @Override
+    public User selectUserByName(String username) {
+        User user = ump.selectUserByName(username);
+        return user;
     }
 }

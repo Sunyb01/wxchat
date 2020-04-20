@@ -77,7 +77,10 @@ public class ResultMsg implements Serializable {
     public static ResultMsg error(ResultEnum re){
         return error(re, null);
     }
-
+    public static ResultMsg error(){
+        ResultEnum error = ResultEnum.USER_NOT_VALIDATAION;
+        return new ResultMsg(error.getCode(), error.getMsg(), "null");
+    }
     public static ResultMsg error(Object obj) {
         return error(ResultEnum.ERROR, obj);
     }
@@ -85,6 +88,7 @@ public class ResultMsg implements Serializable {
     public static ResultMsg error(ResultEnum re, Object obj){
         return new ResultMsg(re.getCode(), re.getMsg(), obj);
     }
+
 
     public static ResultMsg dropOut(ResultEnum res) {
         return new ResultMsg(res.getCode(), res.getMsg(), null);

@@ -16,7 +16,7 @@ import java.util.List;
  * @Description: 用户实体类
  */
 @Data
-public class User implements UserDetails {
+public class User implements UserDetails , Serializable{
     /**
      * 主键
      */

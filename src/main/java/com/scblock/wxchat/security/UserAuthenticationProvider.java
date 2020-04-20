@@ -1,16 +1,12 @@
 package com.scblock.wxchat.security;
 
 import com.scblock.wxchat.entity.User;
-import com.scblock.wxchat.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
@@ -22,22 +18,30 @@ import java.util.Objects;
 public class UserAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    private UserMapper um;
+    private ValidationUserDetailService vuds;
     @Autowired
     private BCryptPasswordEncoder bpe;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String authUserNane = authentication.getName();
+        String authUserName = authentication.getName();
         String authPassword = (String) authentication.getPrincipal();
-        User user = um.selectUserByName(authPassword);
+        User user = (User) vuds.loadUserByUsername(authUserName);
         if(Objects.isNull(user)) {
-            throw new AuthenticationCredentialsNotFoundException("authentication message is null");
+            throw new AuthenticationCredentialsNotFoundException("用户不存在,请先注册!");
         }
         if (bpe.matches(authPassword, user.getPassword())) {
-            return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+            int activationFlag = user.getActivation();
+            if (0 == activationFlag) {
+                throw new AccountExpiredException("账户未激活,请先激活账户!");
+            }else if( 1 == activationFlag) {
+                return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+            }
+            else if (2 == activationFlag) {
+                throw new DisabledException("账户已被冻结,请联系管理员解冻!");
+            }
         }
-        throw new BadCredentialsException("authError");
+        throw new BadCredentialsException("用户名或者密码输入错误，请重新输入!");
     }
 
     @Override
