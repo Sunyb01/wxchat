@@ -5,7 +5,8 @@ public enum ResultEnum {
     DATA_BASE_ERROR(4000, "数据异常"), PARAMETER_ERROR(6000, "参数有误"),
     USER_REPET(7000, "用户已存在,请勿重复注册!"),USER_IS_NOT(7001, "用户不存在!"),
     USER_NOT_VALIDATAION(7003, "用户未认证!"),
-    USER_DROP_OUT(7002, "注销成功!");
+    USER_DROP_OUT(7002, "注销成功!"),
+    USER_INSUFFICIENT_PERMISSIONS(70004, "权限不足");
     private int code;
     private String msg;
 

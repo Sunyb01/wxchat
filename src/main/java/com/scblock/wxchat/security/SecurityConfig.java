@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -43,12 +44,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.addFilterAt(loginFilter(), UsernamePasswordAuthenticationFilter.class);
+//        http.addFilterAt(loginFilter(), UsernamePasswordAuthenticationFilter.class);
         http.authorizeRequests()
                 .antMatchers("/api/**").permitAll()
-                .antMatchers("/user/login", "/user/logout").permitAll()
+                .antMatchers("/user/login", "/login","/user/logout").permitAll()
                 .antMatchers("/example/**").permitAll()
                 .anyRequest().authenticated()
+                .and()
+                .httpBasic().authenticationEntryPoint(ajaxAuthenticationEntryPoint())
                 .and()
 //                .formLogin()
 //                .successHandler(ajaxAuthenticationSuccessHandler())
@@ -60,19 +63,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(ajaxLogoutSuccessHandler()).permitAll()
                 .and()
                 .csrf().disable().exceptionHandling()
-                .authenticationEntryPoint(ajaxAuthenticationEntryPoint());
+                .accessDeniedHandler(ajaxAccessDeniedHandler());
     }
 
 
-    @Bean
-    public LoginFilter loginFilter() throws Exception {
-        LoginFilter loginFilter = new LoginFilter();
-        loginFilter.setAuthenticationSuccessHandler(ajaxAuthenticationSuccessHandler());
-        loginFilter.setAuthenticationFailureHandler(ajaxAuthenticationFailureHandler());
-        loginFilter.setAuthenticationManager(authenticationManagerBean());
-        loginFilter.setFilterProcessesUrl("/doLogin");
-        return loginFilter;
-    }
+//    @Bean
+//    public LoginFilter loginFilter() throws Exception {
+//        LoginFilter loginFilter = new LoginFilter();
+//        loginFilter.setAuthenticationSuccessHandler(ajaxAuthenticationSuccessHandler());
+//        loginFilter.setAuthenticationFailureHandler(ajaxAuthenticationFailureHandler());
+//        loginFilter.setAuthenticationManager(authenticationManagerBean());
+//        loginFilter.setFilterProcessesUrl("/doLogin");
+//        return loginFilter;
+//    }
 
 
     @Bean
@@ -94,5 +97,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationEntryPoint ajaxAuthenticationEntryPoint() {
         return new AjaxAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public AccessDeniedHandler ajaxAccessDeniedHandler(){
+        return new AjaxAccessDeniedHandler();
     }
 }
