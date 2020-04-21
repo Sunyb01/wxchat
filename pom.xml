@@ -19,7 +19,11 @@
     </properties>
 
     <dependencies>
-
+        <!-- 配置组价-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
         <!--    安全组件    -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

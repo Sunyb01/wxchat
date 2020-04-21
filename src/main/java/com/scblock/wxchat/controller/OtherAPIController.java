@@ -34,7 +34,7 @@ public class OtherAPIController {
      */
     @GetMapping("/getWeather")
     public ResultMsg getWeatherInfo(String longitude, String latitude) {
-        if(StringUtils.isEmpty(longitude)) {
+        if (StringUtils.isEmpty(longitude)) {
             longitude = "39.9";
         }
         if(StringUtils.isEmpty(latitude)) {
