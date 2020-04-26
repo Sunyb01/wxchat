@@ -23,7 +23,7 @@
         <id column="id" property="id"/>
         <result column="username" property="userName"/>
         <result column="password" property="password"/>
-        <result column="acvivation" property="activation"/>
+        <result column="activation" property="activation"/>
         <collection property="rules" column="id" ofType="com.scblock.wxchat.entity.Rule" select="com.scblock.wxchat.mapper.RuleMapper.findRulesById"/>
     </resultMap>
 </mapper>

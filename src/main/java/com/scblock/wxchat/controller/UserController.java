@@ -61,11 +61,11 @@ public class UserController {
         return flag == 0 ? ResultMsg.error(ResultEnum.USER_REPET) : ResultMsg.success();
     }
 
-    @PostMapping("/login")
-    public ResultMsg login(String username, String password) throws LoginException {
-        System.out.println(username);
-       return ResultMsg.success();
-    }
+//    @PostMapping("/login")
+//    public ResultMsg login(String username, String password) throws LoginException {
+//        System.out.println(username);
+//       return ResultMsg.success();
+//    }
 
     @GetMapping("/logout")
     public ResultMsg logout(){
